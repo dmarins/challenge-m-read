@@ -29,11 +29,11 @@ namespace M.Challenge.Read.Api.Infrastructure.Response
                         {
                             StatusCode = (int)HttpStatusCode.BadRequest
                         };
-                case ReturnType.Created:
+                case ReturnType.NoContent:
                     return
-                         new ObjectResult(dto.Data)
+                         new ObjectResult(dto.Message)
                          {
-                             StatusCode = (int)HttpStatusCode.Created
+                             StatusCode = (int)HttpStatusCode.NoContent
                          };
             }
         }

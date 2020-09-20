@@ -11,9 +11,6 @@ namespace M.Challenge.Read.Api.Infrastructure.CompositionRoot
             builder
                 .RegisterType<PersonReadingRepository>()
                 .As<IPersonReadingRepository>();
-            builder
-                .RegisterType<PersonWritingRepository>()
-                .As<IPersonWritingRepository>();
         }
     }
 }

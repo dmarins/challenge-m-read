@@ -27,10 +27,10 @@ namespace M.Challenge.Read.Api
             services.AddAuthorization(options =>
             {
                 options
-                    .AddPolicy(Policies.Writing,
+                    .AddPolicy(Policies.Reading,
                         policy => policy
                             .Requirements
-                            .Add(new WritingRequirement()));
+                            .Add(new ReadingRequirement()));
             });
         }
     }

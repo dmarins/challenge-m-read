@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using M.Challenge.Read.Domain.Persistence;
 using M.Challenge.Read.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
@@ -34,11 +33,6 @@ namespace M.Challenge.Read.Api.Infrastructure.CompositionRoot
             builder
                 .RegisterType<DbContext>()
                 .As<IDbContext>()
-                .SingleInstance();
-
-            builder
-                .RegisterType<UnitOfWork>()
-                .As<IUnitOfWork>()
                 .SingleInstance();
         }
     }

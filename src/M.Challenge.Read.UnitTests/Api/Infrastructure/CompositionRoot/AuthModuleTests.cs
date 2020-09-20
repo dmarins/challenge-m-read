@@ -58,7 +58,7 @@ namespace M.Challenge.Read.UnitTests.Api.Infrastructure.CompositionRoot
 
             instance
                 .Should()
-                .BeOfType<WritingAuthorizationHandler>();
+                .BeOfType<ReadingAuthorizationHandler>();
         }
 
         [Fact]

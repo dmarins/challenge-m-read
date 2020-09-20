@@ -14,7 +14,7 @@ namespace M.Challenge.Read.UnitTests.Api.Infrastructure.Response
         [InlineNSubstituteData(ReturnType.InvalidContract, null, (int)HttpStatusCode.BadRequest, ErrorMessageConstants.InvalidContract)]
         [InlineNSubstituteData(ReturnType.Fail, null, (int)HttpStatusCode.InternalServerError, ErrorMessageConstants.Fail)]
         [InlineNSubstituteData(ReturnType.Undefined, null, (int)HttpStatusCode.BadRequest, ErrorMessageConstants.InvalidContract)]
-        [InlineNSubstituteData(ReturnType.Created, null, (int)HttpStatusCode.Created, null)]
+        [InlineNSubstituteData(ReturnType.NoContent, null, (int)HttpStatusCode.NoContent, ErrorMessageConstants.NoContent)]
         public void Sut_WhenFactoryReturnsAccordingToTheDto_ShouldPerformAsExpected(
             ReturnType expectedReturnType,
             object expectedData,
@@ -22,7 +22,7 @@ namespace M.Challenge.Read.UnitTests.Api.Infrastructure.Response
             string expectedMessage,
             ResponseFactory sut)
         {
-            var expectedQueryResultDto = new CommandResultDto(
+            var expectedQueryResultDto = new QueryResultDto(
                 expectedReturnType,
                 expectedData,
                 expectedMessage);

@@ -15,7 +15,7 @@ namespace M.Challenge.Read.Api.Infrastructure.CompositionRoot
                 .As<IInMemoryApiKeyRepository>();
 
             builder
-                .RegisterType<WritingAuthorizationHandler>()
+                .RegisterType<ReadingAuthorizationHandler>()
                 .As<IAuthorizationHandler>();
         }
     }

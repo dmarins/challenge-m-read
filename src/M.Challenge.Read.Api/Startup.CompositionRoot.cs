@@ -18,7 +18,6 @@ namespace M.Challenge.Read.Api
             containerBuilder.RegisterModule(new AuthModule());
             containerBuilder.RegisterModule(new DbContextModule());
             containerBuilder.RegisterModule(new RepositoriesModule());
-            containerBuilder.RegisterModule(new AddPersonServiceModule());
             containerBuilder.RegisterModule(new ResponseModule());
 
             Container = containerBuilder.Build();

@@ -46,37 +46,5 @@ namespace M.Challenge.Read.UnitTests.Api.Infrastructure.CompositionRoot
                 .Should()
                 .NotBe(instance2.GetHashCode());
         }
-
-        [Fact]
-        public void ShouldResolvingIPersonWritingRepositoryAsPersonWritingRepository()
-        {
-            var instance = _fixture
-                .Container
-                .Resolve<IPersonWritingRepository>();
-
-            instance
-                .Should()
-                .BeOfType<PersonWritingRepository>();
-        }
-
-        [Fact]
-        public void ForIPersonWritingRepository_ShouldBeATransientInstance()
-        {
-            var instance1 = _fixture
-                .Container
-                .Resolve<IPersonWritingRepository>();
-
-            var instance2 = _fixture
-                .Container
-                .Resolve<IPersonWritingRepository>();
-
-            instance1
-                .Should()
-                .NotBe(instance2);
-            instance1
-                .GetHashCode()
-                .Should()
-                .NotBe(instance2.GetHashCode());
-        }
     }
 }

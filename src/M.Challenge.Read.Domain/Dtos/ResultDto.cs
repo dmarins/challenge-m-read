@@ -30,6 +30,6 @@ namespace M.Challenge.Read.Domain.Dtos
         Undefined,
         Fail,
         InvalidContract,
-        Created
+        NoContent
     }
 }

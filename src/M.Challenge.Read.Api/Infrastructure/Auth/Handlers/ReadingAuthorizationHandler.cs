@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace M.Challenge.Read.Api.Infrastructure.Auth.Handlers
 {
     [ExcludeFromCodeCoverage]
-    public class WritingAuthorizationHandler : AuthorizationHandler<WritingRequirement>
+    public class ReadingAuthorizationHandler : AuthorizationHandler<ReadingRequirement>
     {
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, WritingRequirement requirement)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ReadingRequirement requirement)
         {
-            if (context.User.IsInRole(Role.Writing))
+            if (context.User.IsInRole(Role.Reading))
             {
                 context.Succeed(requirement);
             }

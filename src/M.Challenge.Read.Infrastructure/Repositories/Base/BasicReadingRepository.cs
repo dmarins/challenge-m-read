@@ -15,12 +15,14 @@ namespace M.Challenge.Read.Infrastructure.Repositories.Base
         public BasicReadingRepository(IDbContext dbContext)
         {
             DbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+
             DbSet = dbContext.GetCollection<T>(nameof(T));
         }
 
         public virtual async Task<T> GetBy(Expression<Func<T, bool>> predicate)
         {
             var data = await DbSet.FindAsync(predicate);
+
             return data.FirstOrDefault();
         }
     }
