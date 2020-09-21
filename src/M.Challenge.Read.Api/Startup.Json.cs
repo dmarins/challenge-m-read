@@ -8,7 +8,6 @@ namespace M.Challenge.Read.Api
     {
         private static void ConfigureJson(IServiceCollection services)
         {
-
             services
                 .AddControllers()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)

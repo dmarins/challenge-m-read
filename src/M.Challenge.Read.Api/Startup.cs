@@ -1,5 +1,6 @@
 using Autofac;
 using M.Challenge.Read.Api.Infrastructure.Middlewares;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,7 @@ namespace M.Challenge.Read.Api
             ConfigureAuthentication(services);
             ConfigureAuthorization(services);
             ConfigureHealthChecks(services, Configuration);
+            ConfigureOData(services);
 
             return RegisterDependencies(services);
         }
@@ -49,7 +51,12 @@ namespace M.Challenge.Read.Api
             app.UseAuthorization();
             app.UseHttpLoggingMiddleware();
             app.UseUnexpectedErrorHandlingMiddleware();
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.EnableDependencyInjection();
+                endpoints.Select().Filter().OrderBy().Count().MaxTop(10);
+            });
         }
     }
 }
