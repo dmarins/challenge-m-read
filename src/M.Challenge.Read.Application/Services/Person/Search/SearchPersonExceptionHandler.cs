@@ -16,7 +16,7 @@ namespace M.Challenge.Read.Application.Services.Person.Search
             IPersonReadingRepository personReadingRepository)
         {
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            PersonReadingRepository = personReadingRepository;
+            PersonReadingRepository = personReadingRepository ?? throw new ArgumentNullException(nameof(personReadingRepository));
         }
 
         public List<Domain.Entities.Person> Process()

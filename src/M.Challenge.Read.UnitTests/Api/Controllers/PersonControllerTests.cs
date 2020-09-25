@@ -1,6 +1,10 @@
 ﻿using AutoFixture.Idioms;
+using FluentAssertions;
 using M.Challenge.Read.Api.Controllers;
+using M.Challenge.Read.Domain.Entities;
 using M.Challenge.Read.UnitTests.Config.AutoData;
+using NSubstitute;
+using System.Collections.Generic;
 using Xunit;
 
 namespace M.Challenge.Read.UnitTests.Api.Controllers
@@ -13,50 +17,19 @@ namespace M.Challenge.Read.UnitTests.Api.Controllers
             assertion.Verify(typeof(PersonController).GetConstructors());
         }
 
-        //[Theory]
-        //[InlineNSubstituteData(ReturnType.InvalidContract, null, (int)HttpStatusCode.BadRequest, ErrorMessageConstants.InvalidContract)]
-        //[InlineNSubstituteData(ReturnType.Fail, null, (int)HttpStatusCode.InternalServerError, ErrorMessageConstants.Fail)]
-        //[InlineNSubstituteData(ReturnType.Created, null, (int)HttpStatusCode.Created, null)]
-        //public async Task Sut_WhenAddPerson_ShouldPerformAsExpected(
-        //    ReturnType expectedReturnType,
-        //    object expectedData,
-        //    int expectedStatusCode,
-        //    string expectedMessage,
-        //    PersonController sut,
-        //    PersonRequest contract)
-        //{
-        //    var expectedCommandResultDto = new QueryResultDto(
-        //        expectedReturnType,
-        //        expectedData,
-        //        expectedMessage);
+        [Theory, AutoNSubstituteData]
+        public void Sut_WhenSearchPerson_ShouldPerformAsExpected(PersonController sut, List<Person> people)
+        {
+            sut.SearchPersonService
+                .Process()
+                .Returns(people);
 
-        //    var objectResult =
-        //        new ObjectResult(expectedMessage)
-        //        {
-        //            StatusCode = expectedStatusCode
-        //        };
+            var result = sut.Search();
 
-        //    sut.ResponseFactory
-        //        .Return(Arg.Any<QueryResultDto>())
-        //        .Returns(objectResult);
-
-        //    sut.AddPersonService
-        //        .Process(Arg.Any<PersonDto>())
-        //        .Returns(expectedCommandResultDto);
-
-        //    var result = await sut.AddPerson(contract);
-
-        //    result
-        //        .As<ObjectResult>()
-        //        .StatusCode
-        //        .Should()
-        //        .Be(expectedStatusCode);
-
-        //    result
-        //        .As<ObjectResult>()
-        //        .Value
-        //        .Should()
-        //        .Be(expectedMessage);
-        //}
+            result
+                .As<List<Person>>()
+                .Should()
+                .HaveCount(3);
+        }
     }
 }
