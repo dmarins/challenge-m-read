@@ -3,7 +3,6 @@ using M.Challenge.Read.Infrastructure.Persistence;
 using MongoDB.Driver;
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace M.Challenge.Read.Infrastructure.Repositories.Base
 {
@@ -22,11 +21,6 @@ namespace M.Challenge.Read.Infrastructure.Repositories.Base
         public virtual IQueryable<T> GetQuery()
         {
             return DbSet.AsQueryable();
-        }
-
-        public virtual T GetBy(Expression<Func<T, bool>> predicate)
-        {
-            return DbSet.Find(predicate).FirstOrDefault();
         }
     }
 }
