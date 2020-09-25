@@ -1,11 +1,13 @@
 ﻿using M.Challenge.Read.Api.Infrastructure.Auth.Policies;
-using M.Challenge.Read.Api.Infrastructure.Response;
+using M.Challenge.Read.Domain.Entities;
+using M.Challenge.Read.Domain.Services.Person.Fetch;
+using M.Challenge.Read.Domain.Services.Person.Search;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace M.Challenge.Read.Api.Controllers
 {
@@ -14,32 +16,32 @@ namespace M.Challenge.Read.Api.Controllers
     [Authorize(Policy = Policies.Reading)]
     public class PersonController : ControllerBase
     {
-        public IResponseFactory ResponseFactory { get; }
+        public IFetchPersonService FetchPersonService { get; }
+        public ISearchPersonService SearchPersonService { get; }
 
-        public PersonController(IResponseFactory responseFactory)
+        public PersonController(
+            IFetchPersonService fetchPersonService,
+            ISearchPersonService searchPersonService)
         {
-            ResponseFactory = responseFactory ?? throw new System.ArgumentNullException(nameof(responseFactory));
+            FetchPersonService = fetchPersonService ?? throw new ArgumentNullException(nameof(fetchPersonService));
+            SearchPersonService = searchPersonService ?? throw new ArgumentNullException(nameof(searchPersonService));
         }
 
-        private static readonly string[] Summaries = new[]
+        [HttpGet]
+        [EnableQuery(PageSize = 10, AllowedQueryOptions = AllowedQueryOptions.All)]
+        public List<Person> Search()
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+            return SearchPersonService.Process();
+        }
 
         [HttpGet]
         [EnableQuery]
-        public async Task<IActionResult> GetPerson()
+        [Route("{id}")]
+        public Person Fetch(string id)
         {
-            var rng = new Random();
+            if (string.IsNullOrWhiteSpace(id)) return null;
 
-            return Ok(Enumerable.Range(1, 5).Select(index => new
-            {
-                Id = Guid.NewGuid(),
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray());
+            return FetchPersonService.Process(id);
         }
     }
 }

@@ -8,8 +8,4 @@
     <ProjectReference Include="..\M.Challenge.Read.Domain\M.Challenge.Read.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Person\" />
-  </ItemGroup>
-
 </Project>
