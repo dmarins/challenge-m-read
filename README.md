@@ -50,7 +50,7 @@ API que simula a consulta do Censo Demográfico de uma região.
 - avance para o diretório: `src`
 - execute o comando de geração de imagem em seu terminal: `docker build -t challenge-m-read:latest .`
 - execute o comando de execução do docker em seu terminal: `docker run -p 5002:80 challenge-m-read:latest`
-- use a collection do postman para verificar o healthcheck e cadastrar dados: `https://www.getpostman.com/collections/bb9d3904da75a6961338`
+- use a collection do postman para verificar o healthcheck e consultar dados: `https://www.getpostman.com/collections/bb9d3904da75a6961338`
 - os logs registrados poderão ser visualizados em seu terminal
 - saia da execução do container atráves do comando CTRL + C
 - para saber o id do container em execução da imagem "challenge-m-read:latest" execute o comando: `docker ps -a`
