@@ -2,8 +2,7 @@
 using M.Challenge.Read.Infrastructure.Persistence;
 using MongoDB.Driver;
 using System;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace M.Challenge.Read.Infrastructure.Repositories.Base
 {
@@ -19,11 +18,9 @@ namespace M.Challenge.Read.Infrastructure.Repositories.Base
             DbSet = dbContext.GetCollection<T>(nameof(T));
         }
 
-        public virtual async Task<T> GetBy(Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> GetQuery()
         {
-            var data = await DbSet.FindAsync(predicate);
-
-            return data.FirstOrDefault();
+            return DbSet.AsQueryable();
         }
     }
 }

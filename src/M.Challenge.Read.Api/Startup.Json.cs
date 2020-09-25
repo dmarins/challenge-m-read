@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Serialization;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace M.Challenge.Read.Api
 {
@@ -9,13 +7,8 @@ namespace M.Challenge.Read.Api
         private static void ConfigureJson(IServiceCollection services)
         {
             services
-                .AddControllers()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(opt =>
-                {
-                    opt.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-                    opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                });
+                .AddControllers(config => config.EnableEndpointRouting = false)
+                .AddNewtonsoftJson();
         }
     }
 }

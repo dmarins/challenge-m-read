@@ -1,11 +1,14 @@
 using Autofac;
 using M.Challenge.Read.Api.Infrastructure.Middlewares;
+using M.Challenge.Read.Domain.Entities;
+using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OData.Edm;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -54,9 +57,18 @@ namespace M.Challenge.Read.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.EnableDependencyInjection();
-                endpoints.Select().Filter().OrderBy().Count().MaxTop(10);
+                endpoints.Select().Filter().OrderBy().Count().Expand().MaxTop(10);
+                endpoints.MapODataRoute("odata", "odata", GetEdmModel());
             });
+        }
+
+        private IEdmModel GetEdmModel()
+        {
+            var odataBuilder = new ODataConventionModelBuilder();
+
+            odataBuilder.EntitySet<Person>(nameof(Person));
+
+            return odataBuilder.GetEdmModel();
         }
     }
 }

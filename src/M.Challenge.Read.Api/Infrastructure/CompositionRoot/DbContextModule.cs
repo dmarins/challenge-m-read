@@ -33,7 +33,7 @@ namespace M.Challenge.Read.Api.Infrastructure.CompositionRoot
             builder
                 .RegisterType<DbContext>()
                 .As<IDbContext>()
-                .SingleInstance();
+                .InstancePerLifetimeScope();
         }
     }
 }

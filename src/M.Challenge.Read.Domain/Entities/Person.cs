@@ -1,22 +1,21 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace M.Challenge.Read.Domain.Entities
 {
-    [Serializable]
     public class Person
     {
+        [Key]
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Ethnicity { get; set; }
         public string Genre { get; set; }
-        public ICollection<Person> Filiation { get; set; }
-        public ICollection<Person> Children { get; set; }
+        public List<Person> Filiation { get; set; }
+        public List<Person> Children { get; set; }
         public string EducationLevel { get; set; }
 
         public Person(string name,
